@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Tap Wizard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="hud">
+      <span id="level">Level: 1</span>
+      <span id="exp">EXP: 0</span>
+      <span id="gold">Gold: 0</span>
+    </div>
+
+    <div class="exp-bar" id="exp-bar">
+      <div class="exp-bar__inner" id="exp-bar-inner"></div>
+      <div class="exp-text" id="exp-text">0 / 0</div>
+    </div>
+
+    <div class="stats-panel">
+      <p>Points to spend: <span id="stat-points">0</span></p>
+      <div>
+        <button onclick="addStat('strength')">+ Strength (<span id="str-val">0</span>)</button>
+        <button onclick="addStat('vitality')">+ Vitality (<span id="vit-val">0</span>)</button>
+        <button onclick="addStat('energy')">+ Energy (<span id="eng-val">0</span>)</button>
+      </div>
+    </div>
+
+    <div id="game">
+      <div id="wizard"></div>
+    </div>
+
+    <div id="game-over" class="hidden">
+      <h2>You died!</h2>
+      <button id="restart-btn">Restart</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
