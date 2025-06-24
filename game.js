@@ -137,16 +137,23 @@ function createEnemy(x, y, isChampion = false, isEmpowered = false) {
   enemy.style.left = `${x}px`;
   enemy.style.top = `${y}px`;
 
-  // HP wg typu (czempion 6 HP, wzmacniany 4, normalny 3)
+  // Bazowe statystyki
+  let baseHp = 3;
+  let baseDamage = 1;
+
   if (isChampion) {
-    enemy.dataset.hp = 6;
+    baseHp *= 10;       // x10 HP dla championa
+    baseDamage *= 10;   // x10 obrażeń dla championa
     enemy.classList.add('champion');
   } else if (isEmpowered) {
-    enemy.dataset.hp = 4;
+    baseHp *= 5;        // x5 HP dla elite
+    baseDamage *= 5;    // x5 obrażeń dla elite
     enemy.classList.add('empowered');
-  } else {
-    enemy.dataset.hp = 3;
   }
+
+  enemy.dataset.hp = baseHp;
+  enemy.dataset.maxHp = baseHp;
+  enemy.dataset.damage = baseDamage;
 
   // Pasek HP
   const hpBar = document.createElement('div');
@@ -159,6 +166,7 @@ function createEnemy(x, y, isChampion = false, isEmpowered = false) {
   game.appendChild(enemy);
   enemies.push(enemy);
 }
+
 
 function moveWizardToTarget() {
   if (enemies.length === 0) return;
