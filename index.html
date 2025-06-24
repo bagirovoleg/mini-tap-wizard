@@ -10,13 +10,22 @@
   <div class="main-wrapper">
     <div class="hud">
       <span id="level">Level: 1</span>
-      <span id="exp">EXP: 0</span>
       <span id="gold">Gold: 0</span>
     </div>
 
+    <div class="hp-bar" id="hp-bar">
+      <div class="bar-inner" id="hp-bar-inner"></div>
+      <div class="bar-text" id="hp-text">0 / 0</div>
+    </div>
+
+    <div class="mana-bar" id="mana-bar">
+      <div class="bar-inner" id="mana-bar-inner"></div>
+      <div class="bar-text" id="mana-text">0 / 0</div>
+    </div>
+
     <div class="exp-bar" id="exp-bar">
-      <div class="exp-bar__inner" id="exp-bar-inner"></div>
-      <div class="exp-text" id="exp-text">0 / 0</div>
+      <div class="bar-inner" id="exp-bar-inner"></div>
+      <div class="bar-text" id="exp-text">0 / 0</div>
     </div>
 
     <div class="stats-panel">
@@ -31,6 +40,8 @@
     <div id="game">
       <div id="wizard"></div>
     </div>
+
+    <button id="restart-btn" class="restart-btn">Restart</button>
 
     <div id="game-over" class="hidden">
       <h2>You died!</h2>

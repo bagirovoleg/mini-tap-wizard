@@ -22,12 +22,27 @@ body {
 #game {
   position: relative;
   width: 100%;
-  height: 70vh; /* ustawiona wysokość */
+  flex: 1;
   background-color: #103c1b;
   overflow: hidden;
   box-shadow: 0 0 10px #000;
-  border-radius: 8px;
-  margin-bottom: 14px;
+}
+
+.restart-btn {
+  margin: 10px auto;
+  display: block;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: #7f3fbf;
+  color: white;
+  border: none;
+  box-shadow: 0 0 8px #a64ca6;
+  transition: background-color 0.3s ease;
+}
+.restart-btn:hover {
+  background-color: #a64ca6;
 }
 
 #wizard {
@@ -36,25 +51,28 @@ body {
   height: 60px;
   background-color: #2ecc71;
   left: 50%;
-  bottom: 60px;
+  top: calc(100% - 100px);
   transform: translateX(-50%);
-  border-radius: 6px;
 }
 
 .enemy {
   position: absolute;
   width: 40px;
   height: 40px;
-  background-color: #e74c3c;
   border-radius: 50%;
+  background-color: #e74c3c; /* normalny mob */
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
 }
 
-.fireball {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: orange;
-  border-radius: 50%;
+.enemy.champion {
+  background-color: #FFD700; /* złoty */
+  box-shadow: 0 0 15px 4px rgba(255, 215, 0, 0.8);
+}
+
+.enemy.empowered {
+  background-color: #3399FF; /* niebieski */
+  box-shadow: 0 0 12px 3px rgba(51, 153, 255, 0.7);
 }
 
 .hud {
@@ -75,87 +93,86 @@ body {
   cursor: pointer;
 }
 
-.healthbar {
-  position: absolute;
-  height: 6px;
-  background-color: red;
-  top: -10px;
-  left: 0;
-  width: 100%;
-  border: 1px solid #000;
-  border-radius: 3px;
+.hp-bar, .mana-bar, .exp-bar {
+  position: relative;
+  height: 16px;
+  border-radius: 8px;
+  margin: 6px auto 0 auto;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.7);
 }
 
-.healthbar__inner {
-  height: 100%;
-  background-color: limegreen;
-  width: 100%;
-  border-radius: 3px;
-  transition: width 0.3s ease;
+.hp-bar {
+  background-color: #8B0000;
+  box-shadow: 0 0 12px #FF0000;
 }
 
 .mana-bar {
-  position: absolute;
-  height: 6px;
   background-color: #00008B;
-  top: -22px;
-  left: 0;
-  width: 100%;
-  border: 1px solid #000066;
-  border-radius: 2px;
-}
-
-.mana-bar__inner {
-  height: 100%;
-  background-color: #00BFFF;
-  width: 100%;
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-.bar-text {
-  position: absolute;
-  top: -38px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 12px;
-  font-family: monospace;
-  color: #fff;
-  user-select: none;
-  pointer-events: none;
+  box-shadow: 0 0 12px #00BFFF;
 }
 
 .exp-bar {
-  position: relative;
-  height: 12px;
   background-color: #2e0854;
-  border-radius: 6px;
-  margin: 10px auto 0 auto;
-  width: 90%;
-  max-width: 600px;
   box-shadow: 0 0 10px #7f3fbf;
 }
 
-.exp-bar__inner {
+.bar-inner {
   height: 100%;
-  background-color: #a64ca6;
-  border-radius: 6px;
+  border-radius: 8px;
   width: 0;
   transition: width 0.4s ease;
 }
 
-.exp-text {
+.hp-bar .bar-inner {
+  background-color: #FF4500;
+}
+
+.mana-bar .bar-inner {
+  background-color: #1E90FF;
+}
+
+.exp-bar .bar-inner {
+  background-color: #a64ca6;
+}
+
+.bar-text {
   position: absolute;
   width: 100%;
   text-align: center;
   top: 0;
   left: 0;
   font-family: monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: #fff;
   user-select: none;
   pointer-events: none;
 }
+
+/* Pasek HP dla wrogów */
+
+.enemy .healthbar {
+  position: absolute;
+  height: 6px;
+  background-color: #8B0000;
+  top: -8px;
+  left: 0;
+  width: 100%;
+  border: 1px solid #FF0000;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.enemy .healthbar__inner {
+  height: 100%;
+  background-color: #FF4500;
+  width: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Animacja trafienia */
 
 @keyframes flash {
   0% { opacity: 1; }
@@ -194,4 +211,24 @@ body {
 
 .hidden {
   display: none;
+}
+
+.fireball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: orange;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 6px 2px orange;
+}
+
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.enemy-hit {
+  animation: flash 0.3s;
 }
